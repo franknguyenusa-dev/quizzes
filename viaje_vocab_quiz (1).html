@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El viaje — Vocab Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5eee2;--card:#fffaf1;--ink:#1c2b30;--mute:#7a7468;--line:#e4d8c3;--acc:#d9552b;--acc2:#1f6f78;--ok:#2e8b57;--bad:#c8372d;--sh:0 1.125rem 3.125rem -1.25rem rgba(60,40,10,.35)}
+@media(prefers-color-scheme:dark){:root{--bg:#121a1d;--card:#1a2528;--ink:#f1e9da;--mute:#97a3a3;--line:#2b3a3e;--acc:#ff7a4d;--acc2:#4fb8c2;--ok:#4cc38a;--bad:#ff6a5e;--sh:0 1.125rem 3.125rem -1.25rem #000}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:clamp(15px,min(calc(9px + .5vw),calc(6px + 1.4vh)),32px);-webkit-text-size-adjust:100%}
+button{touch-action:manipulation}
+html,body{min-height:100%}body{min-height:100vh;min-height:100dvh}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:1.125rem;
+background-image:radial-gradient(60vw 40vw at 90% -10%,rgba(217,85,43,.16),transparent),radial-gradient(50vw 40vw at -10% 110%,rgba(31,111,120,.18),transparent);background-attachment:fixed}
+main{max-width:56rem;margin:0 auto;padding:clamp(1.5rem,6vh,5rem) max(1.4rem,env(safe-area-inset-right)) calc(3.75rem + env(safe-area-inset-bottom)) max(1.4rem,env(safe-area-inset-left))}
+h1,.big{font-family:'Fraunces',Georgia,serif}
+.scr{display:none}.scr.on{display:block;animation:in .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(1rem)}}
+.tag{font-size:0.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);font-weight:700}
+h1{font-size:clamp(2.875rem,8vw,4.875rem);line-height:.95;margin:0.625rem 0 1.875rem;font-weight:800;letter-spacing:-.02em}
+h1 span{display:block;font-size:.38em;font-weight:600;color:var(--acc2);margin-top:0.75rem;letter-spacing:0}
+h3{font-size:0.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin:1.625rem 0 0.75rem}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:0.875rem}
+.tile{background:var(--card);border:2px solid var(--line);border-radius:1.25rem;padding:1.25rem;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:.25s cubic-bezier(.2,.8,.2,1)}
+.tile:hover{transform:translateY(-0.25rem);box-shadow:var(--sh)}
+.tile.on{border-color:var(--acc);background:linear-gradient(160deg,var(--card),rgba(217,85,43,.1))}
+.tile b{display:block;font-family:'Fraunces',serif;font-size:1.625rem;margin:0.375rem 0 2px}
+.tile small{color:var(--mute);font-size:0.875rem}.tile i{font-style:normal;font-size:1.75rem}
+.chips{display:flex;flex-wrap:wrap;gap:0.5625rem}
+.chip{border:2px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:0.9375rem;padding:0.5rem 0.9375rem;border-radius:6.1875rem;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--acc2)}
+.chip.on{background:var(--acc2);border-color:var(--acc2);color:#fff}
+.chip em{font-style:normal;opacity:.6;font-size:0.75rem;margin-left:0.3125rem}
+.gl{font-size:0.8125rem;color:var(--mute);margin:0.75rem 0 0.4375rem;font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:1.625rem}
+.seg{display:inline-flex;background:var(--line);border-radius:0.875rem;padding:0.25rem;gap:2px}
+.seg button{border:0;background:transparent;color:var(--ink);font:inherit;font-size:0.9375rem;font-weight:500;padding:0.5625rem 1rem;border-radius:0.6875rem;cursor:pointer;transition:.2s}
+.seg button.on{background:var(--card);box-shadow:0 2px 0.5rem rgba(0,0,0,.15);font-weight:700}
+.cta{display:block;width:100%;margin-top:2.125rem;border:0;background:var(--acc);color:#fff;font:inherit;font-weight:700;font-size:1.25rem;padding:1.1875rem;border-radius:1.125rem;cursor:pointer;transition:.25s;box-shadow:0 0.875rem 1.875rem -0.75rem var(--acc)}
+.cta:hover{transform:translateY(-2px)}.cta:active{transform:scale(.98)}.cta:disabled{opacity:.4;pointer-events:none}
+.top{display:flex;align-items:center;gap:1rem;margin-bottom:1.375rem}
+.btn{border:2px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:0.9375rem;font-weight:500;padding:0.5625rem 1rem;border-radius:0.75rem;cursor:pointer;transition:.2s}
+.btn:hover{border-color:var(--acc2)}
+.bar{flex:1;height:0.5rem;background:var(--line);border-radius:0.5625rem;overflow:hidden}
+.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:0.5625rem;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.hud{font-size:0.9375rem;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pass{background:var(--card);border-radius:1.625rem;box-shadow:var(--sh);overflow:hidden;border:1px solid var(--line)}
+.q{padding:2.875rem 2.5rem 2.125rem;text-align:center;border-bottom:3px dashed var(--line);position:relative}
+.q small{font-size:0.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.big{font-size:clamp(2.125rem,6vw,3.625rem);font-weight:800;line-height:1.1;margin-top:0.875rem;letter-spacing:-.01em}
+.ans{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;padding:1.5rem}
+.opt{display:flex;gap:0.75rem;align-items:center;text-align:left;border:2px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:1.1875rem;padding:1.0625rem 1.125rem;border-radius:1rem;cursor:pointer;transition:.2s cubic-bezier(.2,.8,.2,1);animation:in .5s both}
+.opt:nth-child(2){animation-delay:.05s}.opt:nth-child(3){animation-delay:.1s}.opt:nth-child(4){animation-delay:.15s}
+.opt:hover{border-color:var(--acc2);transform:translateY(-2px)}
+.opt kbd{font:700 0.8125rem 'DM Sans';background:var(--line);border-radius:0.4375rem;padding:3px 0.5rem;color:var(--mute)}
+.opt.ok{border-color:var(--ok);background:rgba(46,139,87,.15)}.opt.bad{border-color:var(--bad);background:rgba(200,55,45,.13);animation:shake .4s}
+.ans.done .opt{pointer-events:none}.ans.done .opt:not(.ok):not(.bad){opacity:.45}
+@keyframes shake{25%{transform:translateX(-0.4375rem)}75%{transform:translateX(0.4375rem)}}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:0 1.5rem 1.5rem;min-height:3.875rem}
+.foot span{color:var(--mute);font-size:0.875rem}
+.nx{border:0;background:var(--ink);color:var(--bg);font:inherit;font-weight:700;padding:0.8125rem 1.625rem;border-radius:0.875rem;cursor:pointer;opacity:0;transform:translateY(0.5rem);pointer-events:none;transition:.3s}
+.nx.on{opacity:1;transform:none;pointer-events:auto}
+.fc{perspective:87.5rem;padding:1.5rem 1.5rem 0.5rem}
+.fci{position:relative;height:clamp(12rem,34vh,22rem);transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.8,.2,1);cursor:pointer}
+.fc.f .fci{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:1.25rem;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center;border:2px solid var(--line)}
+.face.b{transform:rotateY(180deg);background:linear-gradient(150deg,rgba(31,111,120,.18),rgba(217,85,43,.12))}
+.face small{font-size:0.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.jb{display:flex;gap:0.75rem;padding:0.75rem 1.5rem 0}
+.jb .btn{flex:1;padding:0.9375rem;font-size:1.0625rem;font-weight:700;opacity:.35;pointer-events:none}
+.jb.on .btn{opacity:1;pointer-events:auto}
+.jb .m:hover{border-color:var(--bad)}.jb .g:hover{border-color:var(--ok)}
+.res{text-align:center}
+.ring{position:relative;width:13.75rem;height:13.75rem;margin:0.625rem auto 1.125rem}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:14;stroke-linecap:round}
+.ring .t{stroke:var(--line)}.ring .p{stroke:var(--acc);stroke-dasharray:565;stroke-dashoffset:565;transition:stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1)}
+.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:3.5rem}
+.res h2{font-family:'Fraunces',serif;font-size:2.125rem}.res p{color:var(--mute);margin:0.375rem 0 1.5rem}
+.acts{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.875rem}
+.acts .cta{width:auto;margin:0;padding:0.9375rem 1.75rem;font-size:1.0625rem}
+.acts .btn{padding:0.9375rem 1.5rem;font-size:1.0625rem}
+.ml{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:1.25rem;padding:0.5rem 1.375rem}
+.ml div{display:flex;justify-content:space-between;gap:1rem;padding:0.8125rem 0;border-bottom:1px solid var(--line);font-size:1.0625rem}
+.ml div:last-child{border:0}.ml b{color:var(--bad)}.ml span{color:var(--mute);text-align:right}
+@media(max-width:640px){.tiles{grid-template-columns:1fr;gap:.6rem}.tile{display:grid;grid-template-columns:auto 1fr;column-gap:.9rem;align-items:center;padding:.9rem 1rem}.tile i{grid-row:span 2}.tile b{margin:0}.ans{grid-template-columns:1fr;padding:1rem;gap:.6rem}.q{padding:2rem 1.1rem 1.4rem}.opt{padding:.95rem 1rem}.top{gap:.6rem;flex-wrap:wrap}.bar{order:3;flex-basis:100%}.hud{margin-left:auto}.fci{height:clamp(11rem,32vh,16rem)}.cta{position:sticky;bottom:max(.8rem,env(safe-area-inset-bottom))}.foot span{display:none}.foot{justify-content:flex-end}.seg button{padding:.6rem .85rem}.row{gap:1rem}}
+@media(max-height:620px) and (orientation:landscape){main{padding-top:1rem}.q{padding:1.2rem 1rem .9rem}.big{font-size:2rem;margin-top:.4rem}.ans{grid-template-columns:1fr 1fr;padding:.8rem;gap:.5rem}.opt{padding:.6rem .8rem;font-size:1rem}h1{margin-bottom:1rem}.fci{height:9rem}.foot{min-height:3rem;padding-bottom:.6rem}.ring{width:9rem;height:9rem}.ring b{font-size:2.2rem}.tiles{grid-template-columns:repeat(3,1fr)}}
+@media(hover:none){.tile:hover,.opt:hover,.cta:hover{transform:none}}
+.ring svg{width:100%;height:100%}
+</style>
+</head>
+<body>
+<main>
+<section id="home" class="scr on">
+  <div class="tag">Español 260 Honores</div>
+  <h1>El viaje<span>¿Adónde vamos?</span></h1>
+  <h3>1 · ¿Qué quieres repasar?</h3>
+  <div class="tiles" id="tiles"></div>
+  <h3>2 · Secciones</h3>
+  <div id="chips"></div>
+  <h3>3 · Opciones</h3>
+  <div class="row" id="opts"></div>
+  <button class="cta" id="go"></button>
+</section>
+
+<section id="quiz" class="scr">
+  <div class="top"><button class="btn" id="bk">← Salir</button><div class="bar"><div id="pb"></div></div><div class="hud" id="hud"></div></div>
+  <div class="pass" id="pass"></div>
+</section>
+
+<section id="res" class="scr res">
+  <div class="tag">Resultados</div>
+  <div class="ring"><svg viewBox="0 0 200 200"><circle class="t" cx="100" cy="100" r="90"/><circle class="p" id="rp" cx="100" cy="100" r="90"/></svg><b id="rn">0%</b></div>
+  <h2 id="rt"></h2><p id="rs"></p>
+  <div class="acts" id="ra"></div>
+  <div id="rm"></div>
+</section>
+</main>
+
+<script>
+const G={
+air:{n:'Aeropuerto',p:'Páginas 1–2',i:'✈️',s:[
+['Medios de transporte','por avión=by plane|por tren=by train|por coche/carro/automóvil=by car|por barco=by boat|por taxi/Uber=by taxi/Uber|por autobús/tranvía/guagua/camión=by bus/streetcar|por limusina=by limo|por caravana=by RV/caravan'],
+['Lugares de transporte','el aeropuerto=airport|la estación del autobús=bus station|la estación del tren=train station|el puerto/la ciudad portuaria=port/port city|una parada de autobús/taxi=bus/taxi stop|la estación del metro=subway station'],
+['Personas (aeropuerto)','el piloto/la pilota=pilot|el pasajero/la pasajera=passenger|el/la asistente de vuelo=flight attendant|el copiloto/segundo=co-pilot|la guardia civil=civil guard (police)|el aeromozo/la aeromoza=flight attendant|el/la recepcionista=receptionist|el personal de tierra=ground crew|el mecánico=mechanic|el/la agente de viajes=travel agent|el/la electricista=electrician|la guardia de seguridad=security guard'],
+['Aeropuerto / Avión','el vuelo=flight|el sitio=place/seat|la línea aérea/aerolínea=airline|la llegada=arrival|el talón de equipaje=baggage claim ticket|el asiento=seat|la maleta=suitcase|la reclamación de equipaje=baggage claim|la auto-facturación=self check-in|el maletín=briefcase|la tarifa=fare|la báscula=scale|la terminal=terminal|el billete/el boleto=ticket|el mostrador=counter|la visa/el visado=visa|el billete/boleto electrónico=e-ticket|el cargo/el precio=charge/price|el pasaje=fare/passage|la cabina delantera=front cabin|la cabina trasera=rear cabin|el embarque/el despegue=boarding/takeoff|el equipaje=luggage|la tarjeta de embarque=boarding pass|el pase de abordar=boarding pass (pass)|la salida=departure/exit|el número de vuelo=flight number|el equipaje de mano=carry-on|el pasaporte=passport|el chaleco de salvavidas=life vest|la escala=layover|el pasillo=aisle|la máscara de oxígeno=oxygen mask|la demora=delay|la salida de emergencia=emergency exit|la etiqueta de equipaje=luggage tag|el peso=weight|las alas=wings|la facturación=check-in|la política=policy|el cinturón de seguridad=seat belt|la fila=row/line|la puerta=gate/door|la señal/el letrero=sign|la impresora=printer|el reembolso=refund|la turbulencia=turbulence|los aseos/los servicios=restrooms|el compartimiento superior=overhead bin|la pantalla táctil=touchscreen|el tiempo de vuelo=flight time|la bolsa para mareo=airsickness bag|el mareo=motion sickness|la merienda=snack|la cartera=wallet|los artículos de aseo personal=toiletries|la tarjeta de crédito=credit card|el efectivo=cash|el equipo de primeros auxilios=first aid kit|el control de seguridad=security check|el detector de metales=metal detector|el itinerario=itinerary|el descuento=discount'],
+['Verbos (viaje)','llevar=to carry/wear|tomar/coger=to take|llegar=to arrive|salir/salir para/salir de=to leave/leave for/from|pedir ayuda=to ask for help|volver=to return|rellenar un formulario=to fill out a form|preguntar por=to ask about|dejar/dejar a=to leave (behind)|hacer la maleta=to pack|estar en ruta=to be en route|perder=to lose/miss|deshacer la maleta=to unpack|reservar=to reserve|reducir el precio=to lower the price|girar/dar la vuelta=to turn|comprar un billete=to buy a ticket|quedarse=to stay|despegar=to take off|cancelar=to cancel|viajar=to travel|aterrizar=to land|pagar=to pay|cobrar/costar=to charge/to cost|alquilar un coche/una casa=to rent a car/house|sacar fotos=to take photos|explorar=to explore|comprar recuerdos=to buy souvenirs|volar=to fly|abordar=to board|desabordar=to deplane|caber=to fit|transbordar=to transfer|recoger=to pick up|reclamar=to claim|revisar=to check/inspect|facturar=to check (bags)|conseguir=to get/obtain|presentarse=to show up|depositar=to deposit|asignar=to assign|cambiar aviones=to change planes|imprimir=to print|permanecer=to remain|tener=to have'],
+['Preposiciones / Adverbios','en línea=online|de retraso=delayed|durante=during|con destino a=bound for|a tiempo=on time|por hora=per hour|debajo de=under|procedente de=coming from|por la mañana=in the morning|encima de=on top of|de ida y vuelta=round trip|por la tarde=in the afternoon|delante de=in front of|sin escala=nonstop|por la noche=at night|detrás de=behind|a la derecha/izquierda=to the right/left|en caso de emergencia=in case of emergency'],
+['Adjetivos (viaje)','vuelo directo=direct flight|útil/inútil=useful/useless|colocado=placed|minusválido/a=disabled|extranjero=foreign|seguro=safe/sure|temprano=early|inválido=invalid|válido=valid|tarde=late|perdido=lost|caro=expensive|rápido=fast|ocupado=occupied/busy|económico=economical|lento/despacio=slow|a bordo=on board|barato=cheap|gratis=free|de huelga=on strike|de primera clase=first class|de segunda clase=second class|de clase económica=economy class|ruidoso=noisy|limpio=clean|sucio=dirty|inesperado=unexpected|completo=full/complete|disponible=available|lleno=full|vacío=empty|molesto=annoying|nacional/doméstico=domestic|internacional=international|iluminado=lit|sentado=seated']
+]},
+hotel:{n:'Hotel',p:'Páginas 3–4',i:'🏨',s:[
+['Sustantivos (hotel)','el hotel=hotel|la pensión=boarding house|el hostal=hostel|la cabaña=cabin|el salón de conferencias=conference room|una vista de la playa=beach view|la posada=inn|el hospedaje=lodging|la recepción=front desk|el vestíbulo=lobby|la entrada=entrance|la hora de salida=checkout time|el salón para el equipaje=luggage room|el suelo=floor (ground)|el piso=floor (level)|el aparcamiento/el estacionamiento=parking|la habitación=room|el cuarto de baño=bathroom|la escalera/las escaleras=stairs|la llave=key|la ventana=window|la toalla=towel|la almohada=pillow|la sábana=sheet|la alfombra/la moqueta=carpet|el cubrecama=bedspread|la calefacción=heating|el aire acondicionado=air conditioning|la toalla de mano=hand towel|la manta=blanket|el espejo=mirror|el retrato=portrait|la lámpara=lamp|la luz=light|la toma de corriente=outlet|el internet/el wifi=internet/wifi|la ducha=shower|el lavabo=sink|el inodoro=toilet|la bañera=bathtub|la persiana=blinds|la cortina=curtain|el ventilador=fan|la secadora de pelo=hair dryer|el ascensor=elevator|el servicio=service|la comodidad=comfort/amenity|el servicio de habitación=room service|el hielo=ice|la máquina de hielo=ice machine|la piscina=pool|el jacuzzi=hot tub|la sauna=sauna|el parque infantil=playground|el gimnasio=gym|el agua potable=drinking water|el restaurante=restaurant|la discoteca=nightclub|el bar/el pub=bar/pub|el champú=shampoo|el jabón=soap|la pasta dentífrica=toothpaste|el balcón=balcony|el baño privado=private bath|el baño compartido=shared bath|la lavandería=laundry|el balneario=spa/resort|la cocina=kitchen|el agua caliente=hot water|el catre=cot|la silla de ruedas=wheelchair|la minusvalía=disability|el garaje=garage|el aparcamiento gratis=free parking|el cable gratis=free cable|el cajero=cashier/ATM|la queja=complaint'],
+['Personas (hotel)','el/la empleado/a=employee|el/la botones=bellhop|el portero/la portera=doorman|el camarero/la camarera=waiter/server|el/la gerente=manager|el conserje=concierge|el empleado de mantenimiento=maintenance worker|el criado/la criada=maid/servant|el cocinero/la cocinera=cook|el/la manitas=handyman|la persona de limpieza=cleaning person|el dueño/la dueña=owner|el enfermero/la enfermera=nurse|el mozo/la moza=porter/young worker|el jefe/la jefa=boss|el encargado/la encargada=person in charge|el administrador=administrator|el plomero=plumber|el huésped/la huéspeda=hotel guest|el invitado/la invitada=guest/invitee|el/la socorrista acuático=lifeguard'],
+['Verbos (hotel)','pasar una noche=to spend a night|hospedarse=to lodge|registrarse=to check in|hacer una reservación=to make a reservation|ocupar la habitación=to occupy the room|dejar la habitación=to leave the room|irse=to go away|llevar el equipaje=to carry luggage|dejar el equipaje=to leave luggage|oler=to smell|parecer=to seem|dejar/dar una propina=to tip|limpiar=to clean|pedir=to ask for/order|pedir prestado=to borrow|prestar=to lend|disfrutar=to enjoy|divertirse=to have fun|pasarlo bien/mal=to have a good/bad time|buscar=to look for|querer=to want|necesitar=to need|quejarse=to complain|servir=to serve|faltar=to be missing/lacking|interesar=to interest|encantar=to love/delight'],
+['Adjetivos (hotel)','lujoso=luxurious|de lujo=deluxe|incluido=included|a la carta=à la carte|de buena/mala calidad=good/poor quality|tranquilo=quiet/calm|individual=single|cómodo/incómodo=comfortable/uncomfortable|sencillo=simple/single|de matrimonio=double (bed)|matrimonial=marital/double|doble=double|acogedor=cozy|olvidable/inolvidable=forgettable/unforgettable|aceptable/inaceptable=acceptable/unacceptable|satisfactorio/a=satisfactory|satisfecho/insatisfecho=satisfied/unsatisfied|extra=extra|sobresaliente=outstanding']
+]}};
+
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const T=[];
+for(const g in G)G[g].s.forEach((s,i)=>s[1].split('|').forEach(x=>{const [es,en]=x.split('=');T.push({es,en,k:g+i})}));
+const cnt=k=>T.filter(t=>t.k==k).length;
+const st={g:'air',sel:new Set(),dir:'es',mode:'quiz',len:10};
+const OPTS={dir:['Dirección',[['es','ES → EN'],['en','EN → ES'],['mix','Mixto']]],mode:['Modo',[['quiz','Quiz'],['card','Tarjetas']]],len:['Preguntas',[[10,'10'],[20,'20'],[0,'Todas']]]};
+let Q={};
+
+function pick(g){st.g=g;st.sel=new Set(Object.keys(G).filter(k=>g=='all'||k==g).flatMap(k=>G[k].s.map((_,i)=>k+i)));render()}
+function pool(){const seen=new Set();return T.filter(t=>st.sel.has(t.k)&&!seen.has(t.es)&&seen.add(t.es))}
+function render(){
+  const tot=g=>T.filter(t=>g=='all'||t.k.startsWith(g)).length;
+  $('#tiles').innerHTML=[['air'],['hotel'],['all']].map(([g])=>{const d=g=='all'?{i:'🌎',n:'Todo',p:'Páginas 1–4'}:G[g];return `<button class="tile ${st.g==g?'on':''}" data-g="${g}"><i>${d.i}</i><b>${d.n}</b><small>${d.p} · ${tot(g)} palabras</small></button>`}).join('');
+  $('#chips').innerHTML=Object.keys(G).filter(k=>st.g=='all'||k==st.g).map(k=>`<div class="gl">${G[k].n}</div><div class="chips">${G[k].s.map((s,i)=>`<button class="chip ${st.sel.has(k+i)?'on':''}" data-k="${k+i}">${s[0]}<em>${cnt(k+i)}</em></button>`).join('')}</div>`).join('');
+  $('#opts').innerHTML=Object.entries(OPTS).map(([k,[l,o]])=>`<div><h3 style="margin-top:0">${l}</h3><div class="seg">${o.map(([v,t])=>`<button data-o="${k}" data-v="${v}" class="${st[k]==v?'on':''}">${t}</button>`).join('')}</div></div>`).join('');
+  const n=pool().length;$('#go').disabled=!n;$('#go').textContent=n?`Empezar · ${st.len&&st.len<n?st.len:n} ${st.mode=='quiz'?'preguntas':'tarjetas'}`:'Elige una sección';
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-g],[data-k],[data-o]');if(!t||!$('#home').classList.contains('on'))return;
+  if(t.dataset.g)pick(t.dataset.g);
+  else if(t.dataset.k){const k=t.dataset.k;st.sel.has(k)?st.sel.delete(k):st.sel.add(k);render()}
+  else{st[t.dataset.o]=t.dataset.o=='len'?+t.dataset.v:t.dataset.v;render()}
+});
+function show(id){$$('.scr').forEach(s=>s.classList.remove('on'));void $('#'+id).offsetWidth;$('#'+id).classList.add('on');scrollTo(0,0)}
+
+function start(items){
+  const p=pool(),base=p.length<4?T:p;
+  let it=items||shuf(p);if(!items&&st.len)it=it.slice(0,st.len);
+  Q={items:it,i:0,ok:0,streak:0,miss:[],all:base,done:false};
+  show('quiz');ask();
+}
+function ask(){
+  const t=Q.items[Q.i],n=Q.items.length;Q.done=false;
+  Q.d=st.dir=='mix'?(Math.random()<.5?'es':'en'):st.dir;
+  const f=Q.d=='es'?'en':'es',q=Q.d=='es'?t.es:t.en,a=t[f];Q.a=a;
+  $('#pb').style.width=(Q.i/n*100)+'%';hud();
+  const lab=Q.d=='es'?'Español → English':'English → Español';
+  if(st.mode=='quiz'){
+    const o=[a];for(const x of shuf(Q.all)){if(o.length>3)break;if(!o.includes(x[f]))o.push(x[f])}
+    Q.o=shuf(o);
+    $('#pass').innerHTML=`<div class="q"><small>${lab}</small><div class="big">${q}</div></div><div class="ans" id="ans">${Q.o.map((x,i)=>`<button class="opt" data-i="${i}"><kbd>${i+1}</kbd>${x}</button>`).join('')}</div><div class="foot"><span>Teclas 1–4 · Enter = siguiente</span><button class="nx" id="nx">${Q.i+1==n?'Ver resultados':'Siguiente →'}</button></div>`;
+    $$('.opt').forEach(b=>b.onclick=()=>choose(+b.dataset.i));
+  }else{
+    $('#pass').innerHTML=`<div class="fc" id="fc"><div class="fci"><div class="face"><small>${lab}</small><div class="big">${q}</div></div><div class="face b"><small>Respuesta</small><div class="big">${a}</div></div></div></div><div class="jb" id="jb"><button class="btn m" id="bm">✗ Otra vez</button><button class="btn g" id="bg">✓ ¡Lo sé!</button></div><div class="foot"><span>Espacio = voltear · ← otra vez · → lo sé</span></div>`;
+    $('#fc').onclick=flip;$('#bm').onclick=()=>grade(0);$('#bg').onclick=()=>grade(1);
+  }
+}
+function hud(){$('#hud').textContent=`${Q.i+1}/${Q.items.length} · ✓ ${Q.ok}${Q.streak>2?' · 🔥'+Q.streak:''}`}
+function choose(i){
+  if(Q.done||i>=Q.o.length)return;Q.done=true;
+  const ok=Q.o[i]==Q.a,bs=$$('.opt');
+  bs[i].classList.add(ok?'ok':'bad');bs[Q.o.indexOf(Q.a)].classList.add('ok');$('#ans').classList.add('done');
+  record(ok);$('#nx').classList.add('on');$('#nx').onclick=next;
+}
+function record(ok){const t=Q.items[Q.i];if(ok){Q.ok++;Q.streak++}else{Q.streak=0;Q.miss.push(t)}hud();$('#pb').style.width=((Q.i+1)/Q.items.length*100)+'%'}
+function flip(){$('#fc').classList.toggle('f');$('#jb').classList.add('on')}
+function grade(ok){if(!$('#jb').classList.contains('on')||Q.done)return;Q.done=true;record(ok);setTimeout(next,350)}
+function next(){Q.i++;Q.i>=Q.items.length?finish():ask()}
+function finish(){
+  const n=Q.items.length,pc=Math.round(Q.ok/n*100);
+  show('res');$('#rn').textContent='0%';$('#rp').style.strokeDashoffset=565;
+  setTimeout(()=>{$('#rp').style.strokeDashoffset=565*(1-pc/100);let c=0;const iv=setInterval(()=>{c+=Math.max(1,pc/40|0);if(c>=pc){c=pc;clearInterval(iv)}$('#rn').textContent=c+'%'},25)},120);
+  $('#rt').textContent=pc==100?'¡Perfecto! 🎉':pc>=80?'¡Muy bien!':pc>=60?'Vas bien, sigue así':'¡A practicar más!';
+  $('#rs').textContent=`${Q.ok} de ${n} correctas`;
+  $('#ra').innerHTML=(Q.miss.length?`<button class="cta" id="rr">Repasar ${Q.miss.length} falladas</button>`:'')+`<button class="btn" id="ra1">Otra vez</button><button class="btn" id="rh">Inicio</button>`;
+  $('#rm').innerHTML=Q.miss.length?`<h3>Para repasar</h3><div class="ml">${Q.miss.map(t=>`<div><b>${t.es}</b><span>${t.en}</span></div>`).join('')}</div>`:'';
+  if($('#rr'))$('#rr').onclick=()=>start(shuf(Q.miss));
+  $('#ra1').onclick=()=>start();$('#rh').onclick=()=>{render();show('home')};
+}
+$('#go').onclick=()=>start();
+$('#bk').onclick=()=>{render();show('home')};
+document.addEventListener('keydown',e=>{
+  if(!$('#quiz').classList.contains('on')){if(e.key=='Enter'&&$('#home').classList.contains('on')&&!$('#go').disabled)start();return}
+  if(e.key=='Escape'){render();show('home');return}
+  if(st.mode=='quiz'){
+    if('1234'.includes(e.key)&&e.key)choose(+e.key-1);
+    else if((e.key=='Enter'||e.key==' '||e.key=='ArrowRight')&&Q.done){e.preventDefault();next()}
+  }else{
+    if(e.key==' '){e.preventDefault();flip()}
+    else if(e.key=='ArrowLeft')grade(0);else if(e.key=='ArrowRight')grade(1);
+  }
+});
+pick('air');
+</script>
+</body>
+</html>
