@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Español 260 — Quiz</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7eff0;--card:#fffafa;--ink:#2a2230;--mute:#80747c;--line:#eadadf;--acc:#b5446e;--acc2:#3d7a5a;--ok:#2e8b57;--bad:#c8372d;--sh:0 1.125rem 3.125rem -1.25rem rgba(60,40,10,.35)}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1419;--card:#251c23;--ink:#f6eaee;--mute:#a597a0;--line:#3a2b34;--acc:#ff8fb0;--acc2:#7fd1a4;--ok:#4cc38a;--bad:#ff6a5e;--sh:0 1.125rem 3.125rem -1.25rem #000}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:clamp(15px,min(calc(9px + .5vw),calc(6px + 1.4vh)),32px);-webkit-text-size-adjust:100%}
+button{touch-action:manipulation}
+html,body{min-height:100%}body{min-height:100vh;min-height:100dvh}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:1.125rem;
+background-image:radial-gradient(60vw 40vw at 90% -10%,rgba(181,68,110,.16),transparent),radial-gradient(50vw 40vw at -10% 110%,rgba(61,122,90,.18),transparent);background-attachment:fixed}
+main{max-width:56rem;margin:0 auto;padding:clamp(1.5rem,6vh,5rem) max(1.4rem,env(safe-area-inset-right)) calc(3.75rem + env(safe-area-inset-bottom)) max(1.4rem,env(safe-area-inset-left))}
+h1,.big{font-family:'Fraunces',Georgia,serif}
+.scr{display:none}.scr.on{display:block;animation:in .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(1rem)}}
+.tag{font-size:0.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);font-weight:700}
+h1{font-size:clamp(2.875rem,8vw,4.875rem);line-height:.95;margin:0.625rem 0 1.875rem;font-weight:800;letter-spacing:-.02em}
+h1 span{display:block;font-size:.38em;font-weight:600;color:var(--acc2);margin-top:0.75rem;letter-spacing:0}
+h3{font-size:0.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin:1.625rem 0 0.75rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:0.875rem}.back{margin-bottom:1.2rem}.rt{width:100%;border-collapse:collapse;font-size:.85rem;margin:1.2rem 0}.rt th,.rt td{border-bottom:1px solid var(--line);padding:.55rem .6rem;text-align:left;vertical-align:top}.rt th{color:var(--acc);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}#mt{grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}@media(max-width:640px){#mt{grid-template-columns:1fr}}
+.tile{background:var(--card);border:2px solid var(--line);border-radius:1.25rem;padding:1.25rem;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:.25s cubic-bezier(.2,.8,.2,1)}
+.tile:hover{transform:translateY(-0.25rem);box-shadow:var(--sh)}
+.tile.on{border-color:var(--acc);background:linear-gradient(160deg,var(--card),rgba(181,68,110,.1))}
+.tile b{display:block;font-family:'Fraunces',serif;font-size:1.625rem;margin:0.375rem 0 2px}
+.tile small{color:var(--mute);font-size:0.875rem}.tile i{font-style:normal;font-size:1.75rem}
+.chips{display:flex;flex-wrap:wrap;gap:0.5625rem}
+.chip{border:2px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:0.9375rem;padding:0.5rem 0.9375rem;border-radius:6.1875rem;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--acc2)}
+.chip.on{background:var(--acc2);border-color:var(--acc2);color:#fff}
+.chip em{font-style:normal;opacity:.6;font-size:0.75rem;margin-left:0.3125rem}
+.gl{font-size:0.8125rem;color:var(--mute);margin:0.75rem 0 0.4375rem;font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:1.625rem}
+.seg{display:inline-flex;background:var(--line);border-radius:0.875rem;padding:0.25rem;gap:2px}
+.seg button{border:0;background:transparent;color:var(--ink);font:inherit;font-size:0.9375rem;font-weight:500;padding:0.5625rem 1rem;border-radius:0.6875rem;cursor:pointer;transition:.2s}
+.seg button.on{background:var(--card);box-shadow:0 2px 0.5rem rgba(0,0,0,.15);font-weight:700}
+.cta{display:block;width:100%;margin-top:2.125rem;border:0;background:var(--acc);color:#fff;font:inherit;font-weight:700;font-size:1.25rem;padding:1.1875rem;border-radius:1.125rem;cursor:pointer;transition:.25s;box-shadow:0 0.875rem 1.875rem -0.75rem var(--acc)}
+.cta:hover{transform:translateY(-2px)}.cta:active{transform:scale(.98)}.cta:disabled{opacity:.4;pointer-events:none}
+.top{display:flex;align-items:center;gap:1rem;margin-bottom:1.375rem}
+.btn{border:2px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:0.9375rem;font-weight:500;padding:0.5625rem 1rem;border-radius:0.75rem;cursor:pointer;transition:.2s}
+.btn:hover{border-color:var(--acc2)}
+.bar{flex:1;height:0.5rem;background:var(--line);border-radius:0.5625rem;overflow:hidden}
+.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:0.5625rem;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.hud{font-size:0.9375rem;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pass{background:var(--card);border-radius:1.625rem;box-shadow:var(--sh);overflow:hidden;border:1px solid var(--line)}
+.q{padding:2.875rem 2.5rem 2.125rem;text-align:center;border-bottom:3px dashed var(--line);position:relative}
+.q small{font-size:0.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.big{font-size:clamp(2.125rem,6vw,3.625rem);font-weight:800;line-height:1.1;margin-top:0.875rem;letter-spacing:-.01em}
+.ans{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;padding:1.5rem}
+.opt{display:flex;gap:0.75rem;align-items:center;text-align:left;border:2px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:1.1875rem;padding:1.0625rem 1.125rem;border-radius:1rem;cursor:pointer;transition:.2s cubic-bezier(.2,.8,.2,1);animation:in .5s both}
+.opt:nth-child(2){animation-delay:.05s}.opt:nth-child(3){animation-delay:.1s}.opt:nth-child(4){animation-delay:.15s}
+.opt:hover{border-color:var(--acc2);transform:translateY(-2px)}
+.opt kbd{font:700 0.8125rem 'DM Sans';background:var(--line);border-radius:0.4375rem;padding:3px 0.5rem;color:var(--mute)}
+.opt.ok{border-color:var(--ok);background:rgba(46,139,87,.15)}.opt.bad{border-color:var(--bad);background:rgba(200,55,45,.13);animation:shake .4s}
+.ans.done .opt{pointer-events:none}.ans.done .opt:not(.ok):not(.bad){opacity:.45}
+@keyframes shake{25%{transform:translateX(-0.4375rem)}75%{transform:translateX(0.4375rem)}}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:0 1.5rem 1.5rem;min-height:3.875rem}
+.foot span{color:var(--mute);font-size:0.875rem}
+.nx{border:0;background:var(--ink);color:var(--bg);font:inherit;font-weight:700;padding:0.8125rem 1.625rem;border-radius:0.875rem;cursor:pointer;opacity:0;transform:translateY(0.5rem);pointer-events:none;transition:.3s}
+.nx.on{opacity:1;transform:none;pointer-events:auto}
+.fc{perspective:87.5rem;padding:1.5rem 1.5rem 0.5rem}
+.fci{position:relative;height:clamp(12rem,34vh,22rem);transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.8,.2,1);cursor:pointer}
+.fc.f .fci{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:1.25rem;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center;border:2px solid var(--line)}
+.face.b{transform:rotateY(180deg);background:linear-gradient(150deg,rgba(61,122,90,.18),rgba(181,68,110,.12))}
+.face small{font-size:0.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);font-weight:700}
+.jb{display:flex;gap:0.75rem;padding:0.75rem 1.5rem 0}
+.jb .btn{flex:1;padding:0.9375rem;font-size:1.0625rem;font-weight:700;opacity:.35;pointer-events:none}
+.jb.on .btn{opacity:1;pointer-events:auto}
+.jb .m:hover{border-color:var(--bad)}.jb .g:hover{border-color:var(--ok)}
+.wr{display:flex;gap:.7rem;padding:1.5rem 1.5rem .4rem}
+.wr input{flex:1;min-width:0;font:inherit;font-size:1.2rem;padding:1rem 1.1rem;border-radius:1rem;border:2px solid var(--line);background:transparent;color:var(--ink);outline:0;transition:.2s}
+.wr input:focus{border-color:var(--acc2);box-shadow:0 0 0 4px rgba(61,122,90,.18)}
+.wr input.ok{border-color:var(--ok);background:rgba(46,139,87,.12)}.wr input.bad{border-color:var(--bad);animation:shake .4s}
+.wr .btn{font-weight:700;background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fb{padding:.4rem 1.5rem 0;min-height:3.2rem;font-weight:700;display:flex;gap:.8rem;align-items:center;flex-wrap:wrap}
+.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}.fb .btn{font-size:.85rem;padding:.4rem .8rem;color:var(--ink)}
+.res{text-align:center}
+.ring{position:relative;width:13.75rem;height:13.75rem;margin:0.625rem auto 1.125rem}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:14;stroke-linecap:round}
+.ring .t{stroke:var(--line)}.ring .p{stroke:var(--acc);stroke-dasharray:565;stroke-dashoffset:565;transition:stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1)}
+.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:3.5rem}
+.res h2{font-family:'Fraunces',serif;font-size:2.125rem}.res p{color:var(--mute);margin:0.375rem 0 1.5rem}
+.acts{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.875rem}
+.acts .cta{width:auto;margin:0;padding:0.9375rem 1.75rem;font-size:1.0625rem}
+.acts .btn{padding:0.9375rem 1.5rem;font-size:1.0625rem}
+.ml{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:1.25rem;padding:0.5rem 1.375rem}
+.ml div{display:flex;justify-content:space-between;gap:1rem;padding:0.8125rem 0;border-bottom:1px solid var(--line);font-size:1.0625rem}
+.ml div:last-child{border:0}.ml b{color:var(--bad)}.ml span{color:var(--mute);text-align:right}
+@media(max-width:640px){.tiles{grid-template-columns:1fr;gap:.6rem}.tile{display:grid;grid-template-columns:auto 1fr;column-gap:.9rem;align-items:center;padding:.9rem 1rem}.tile i{grid-row:span 2}.tile b{margin:0}.ans{grid-template-columns:1fr;padding:1rem;gap:.6rem}.q{padding:2rem 1.1rem 1.4rem}.opt{padding:.95rem 1rem}.top{gap:.6rem;flex-wrap:wrap}.bar{order:3;flex-basis:100%}.hud{margin-left:auto}.fci{height:clamp(11rem,32vh,16rem)}.cta{position:sticky;bottom:max(.8rem,env(safe-area-inset-bottom))}.foot span{display:none}.foot{justify-content:flex-end}.seg button{padding:.6rem .85rem}.row{gap:1rem}}
+@media(max-height:620px) and (orientation:landscape){main{padding-top:1rem}.q{padding:1.2rem 1rem .9rem}.big{font-size:2rem;margin-top:.4rem}.ans{grid-template-columns:1fr 1fr;padding:.8rem;gap:.5rem}.opt{padding:.6rem .8rem;font-size:1rem}h1{margin-bottom:1rem}.fci{height:9rem}.foot{min-height:3rem;padding-bottom:.6rem}.ring{width:9rem;height:9rem}.ring b{font-size:2.2rem}.tiles{grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}}
+@media(hover:none){.tile:hover,.opt:hover,.cta:hover{transform:none}}
+.ring svg{width:100%;height:100%}
+</style>
+</head>
+<body>
+<main>
+<section id="menu" class="scr on">
+  <div class="tag">Español 260H</div>
+  <h1>¿Qué vamos a<span>practicar hoy?</span></h1>
+  <div class="tiles" id="mt"></div>
+</section>
+<section id="home" class="scr">
+  <button class="btn back" id="tomenu">← Menú</button>
+  <div class="tag" id="htag"></div>
+  <h1 id="h1"></h1>
+  <div id="ref"></div>
+  <h3>1 · ¿Qué quieres repasar?</h3>
+  <div class="tiles" id="tiles"></div>
+  <h3>2 · Secciones</h3>
+  <div id="chips"></div>
+  <h3>3 · Opciones</h3>
+  <div class="row" id="opts"></div>
+  <button class="cta" id="go"></button>
+</section>
+
+<section id="quiz" class="scr">
+  <div class="top"><button class="btn" id="bk">← Salir</button><div class="bar"><div id="pb"></div></div><div class="hud" id="hud"></div></div>
+  <div class="pass" id="pass"></div>
+</section>
+
+<section id="res" class="scr res">
+  <div class="tag">Resultados</div>
+  <div class="ring"><svg viewBox="0 0 200 200"><circle class="t" cx="100" cy="100" r="90"/><circle class="p" id="rp" cx="100" cy="100" r="90"/></svg><b id="rn">0%</b></div>
+  <h2 id="rt"></h2><p id="rs"></p>
+  <div class="acts" id="ra"></div>
+  <div id="rm"></div>
+</section>
+</main>
+
+<script>
+let G={
+fam:{n:'La familia',p:'Página 1',i:'👨‍👩‍👧',s:[
+['Padres y hermanos','los padres=parents|los parientes=relatives|el padre/el papá=father/dad|la madre/la mamá=mother/mom|el hermano=brother|la hermana=sister|el esposo/el marido=husband|la esposa/la mujer=wife|el hijo=son|la hija=daughter'],
+['Abuelos, tíos y primos','el abuelo=grandfather|la abuela=grandmother|el bisabuelo=great-grandfather|la bisabuela=great-grandmother|el tío=uncle|la tía=aunt|el sobrino=nephew|la sobrina=niece|el primo=cousin (m)|la prima=cousin (f)|el segundo primo=second cousin (m)|la segunda prima=second cousin (f)|el tío abuelo=great-uncle|la tía abuela=great-aunt|el nieto=grandson|la nieta=granddaughter|el bisnieto=great-grandson|la bisnieta=great-granddaughter'],
+['Familia política y adoptiva','el padrastro=stepfather|la madrastra=stepmother|el hermanastro=stepbrother|la hermanastra=stepsister|el hijastro=stepson|la hijastra=stepdaughter|el medio hermano=half brother|la media hermana=half sister|el suegro=father-in-law|la suegra=mother-in-law|el cuñado=brother-in-law|la cuñada=sister-in-law|el yerno=son-in-law|la nuera=daughter-in-law|el viudo=widower|la viuda=widow|el tutor/la tutora=tutor/guardian|el guardián/la guardiana=guardian|el/la pariente lejano/a=distant relative|el/la pariente cercano/a=close relative']
+]},
+com:{n:'La comunidad',p:'Página 2',i:'🏘️',s:[
+['Otros sustantivos','gemelo/gemela o mellizo/melliza=twin|la brecha generacional=generation gap|el matrimonio=marriage/married couple|la generación=generation|la jubilación=retirement|la pareja=couple/partner|el/la colega=colleague|el novio/la novia=boyfriend/girlfriend|el aliado/la aliada=ally|el cambio=change|el esposo/la esposa=husband/wife|el marido/la marida=husband/wife|el divorcio=divorce|la muerte=death|el noviazgo=courtship|el/la compañero/a=companion/partner|el amigo/la amiga=friend|el enemigo/la enemiga=enemy|la cita=date/appointment|el huérfano/la huérfana=orphan'],
+['Verbos','llevarse bien (con)=to get along (with)|llevarse mal (con)=to not get along (with)|portarse bien=to behave well|portarse mal=to misbehave|discutir=to argue/discuss|salir con=to go out with|casarse con=to marry|divorciarse=to get divorced|celebrar/festejar=to celebrate|separarse de=to separate from|apoyar=to support|nacer=to be born|morir (o-ue)/fallecer=to die|criar=to raise|crecer=to grow|divertirse (e-ie)=to have fun|pasarlo bien=to have a good time|pasarlo mal=to have a bad time|confiar en=to trust|cambiar=to change|amar/querer=to love|soportar=to put up with|jubilarse/retirarse=to retire|dar la luz/parir=to give birth'],
+['Adjetivos','casado/a=married|divorciado=divorced|soltero/a=single|adoptivo/a=adoptive|moderno=modern|adoptado/a=adopted|bueno → mejor=good → better|malo → peor=bad → worse|viejo → mayor=old → older|joven → menor=young → younger|separado/separada=separated|prometido/prometida=engaged|íntimo/a=close/intimate|unido/unida=close-knit/united'],
+['Las etapas de vida','el período prenatal=prenatal period|el nacimiento=birth|la infancia=infancy|la niñez=childhood|la adolescencia=adolescence|la juventud=youth|la adultez=adulthood|la vejez=old age|la muerte=death']
+]}};
+
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let T=[];
+const cnt=k=>T.filter(t=>t.k==k).length;
+const st={g:'fam',sel:new Set(),dir:'es',mode:'quiz',len:10};
+let OPTS={dir:['Dirección',[['es','ES → EN'],['en','EN → ES'],['mix','Mixto']]],mode:['Modo',[['quiz','Quiz'],['card','Tarjetas'],['write','Escrito']]],len:['Preguntas',[[10,'10'],[20,'20'],[0,'Todas']]]};
+let Q={};
+
+function pick(g){st.g=g;st.sel=new Set(Object.keys(G).filter(k=>g=='all'||k==g).flatMap(k=>G[k].s.map((_,i)=>k+i)));render()}
+function pool(){const seen=new Set();return T.filter(t=>st.sel.has(t.k)&&!seen.has(t.es)&&seen.add(t.es))}
+function render(){
+  const tot=g=>T.filter(t=>g=='all'||t.k.startsWith(g)).length;
+  $('#tiles').innerHTML=[...Object.keys(G),'all'].map(g=>{const d=g=='all'?{i:'🌎',n:'Todo',p:ALLP}:G[g];return `<button class="tile ${st.g==g?'on':''}" data-g="${g}"><i>${d.i}</i><b>${d.n}</b><small>${d.p} · ${tot(g)} ${UNIT}</small></button>`}).join('');
+  $('#chips').innerHTML=Object.keys(G).filter(k=>st.g=='all'||k==st.g).map(k=>`<div class="gl">${G[k].n}</div><div class="chips">${G[k].s.map((s,i)=>`<button class="chip ${st.sel.has(k+i)?'on':''}" data-k="${k+i}">${s[0]}<em>${cnt(k+i)}</em></button>`).join('')}</div>`).join('');
+  $('#opts').innerHTML=Object.entries(OPTS).map(([k,[l,o]])=>`<div><h3 style="margin-top:0">${l}</h3><div class="seg">${o.map(([v,t])=>`<button data-o="${k}" data-v="${v}" class="${st[k]==v?'on':''}">${t}</button>`).join('')}</div></div>`).join('');
+  const n=pool().length;$('#go').disabled=!n;$('#go').textContent=n?`Empezar · ${st.len&&st.len<n?st.len:n} ${st.mode=='card'?'tarjetas':'preguntas'}`:'Elige una sección';
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-g],[data-k],[data-o]');if(!t||!$('#home').classList.contains('on'))return;
+  if(t.dataset.g)pick(t.dataset.g);
+  else if(t.dataset.k){const k=t.dataset.k;st.sel.has(k)?st.sel.delete(k):st.sel.add(k);render()}
+  else{st[t.dataset.o]=t.dataset.o=='len'?+t.dataset.v:t.dataset.v;render()}
+});
+function show(id){$$('.scr').forEach(s=>s.classList.remove('on'));void $('#'+id).offsetWidth;$('#'+id).classList.add('on');scrollTo(0,0)}
+
+function start(items){
+  const p=pool(),base=p.length<4?T:p;
+  let it=items||shuf(p);if(!items&&st.len)it=it.slice(0,st.len);
+  Q={items:it,i:0,ok:0,streak:0,miss:[],all:base,done:false};
+  show('quiz');ask();
+}
+function ask(){
+  const t=Q.items[Q.i],n=Q.items.length;Q.done=false;
+  Q.d=st.dir=='mix'?pickd():st.dir;
+  const [q,a,lab]=QA(t,Q.d);Q.a=a;Q.acc=0;Q.t=t;
+  $('#pb').style.width=(Q.i/n*100)+'%';hud();
+  if(st.mode=='quiz'){
+    const o=[a];for(const x of [...shuf(DIS(t,Q.d)),...shuf(Q.all.map(y=>QA(y,Q.d)[1]))]){if(o.length>3)break;if(x&&!o.includes(x))o.push(x)}
+    Q.o=shuf(o);
+    $('#pass').innerHTML=`<div class="q"><small>${lab}</small><div class="big">${q}</div></div><div class="ans" id="ans">${Q.o.map((x,i)=>`<button class="opt" data-i="${i}"><kbd>${i+1}</kbd>${x}</button>`).join('')}</div><div class="foot"><span>Teclas 1–4 · Enter = siguiente</span><button class="nx" id="nx">${Q.i+1==n?'Ver resultados':'Siguiente →'}</button></div>`;
+    $$('.opt').forEach(b=>b.onclick=()=>choose(+b.dataset.i));
+  }else if(st.mode=='write'){
+    $('#pass').innerHTML=`<div class="q"><small>${lab}</small><div class="big">${q}</div></div><div class="wr"><input id="wi" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Escribe la respuesta…"><button class="btn" id="wk">Comprobar</button></div><div class="fb" id="fb"></div><div class="foot"><span>Enter = comprobar / siguiente · ${tp!='voc'?'los acentos cuentan':'acentos opcionales'} · vacío = no sé</span></div>`;
+    const wi=$('#wi');wi.focus({preventScroll:true});
+    wi.onkeydown=e=>{if(e.key=='Enter'){e.preventDefault();e.stopPropagation();Q.done?next():check()}};
+    $('#wk').onclick=()=>Q.done?next():check();
+  }else{
+    $('#pass').innerHTML=`<div class="fc\" id="fc"><div class="fci"><div class="face"><small>${lab}</small><div class="big">${q}</div></div><div class="face b"><small>Respuesta</small><div class="big">${a}</div></div></div></div><div class="jb" id="jb"><button class="btn m" id="bm">✗ Otra vez</button><button class="btn g" id="bg">✓ ¡Lo sé!</button></div><div class="foot"><span>Espacio = voltear · ← otra vez · → lo sé</span></div>`;
+    $('#fc').onclick=flip;$('#bm').onclick=()=>grade(0);$('#bg').onclick=()=>grade(1);
+  }
+}
+const art=/^(el\/la|la\/el|el|la|los|las|un|una|to|the|a)\s+/;
+const norm=x=>x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\(.*?\)/g,'').replace(/[→\-]/g,' ').replace(/[^a-z0-9\/ ]/g,'').replace(/\s+/g,' ').trim();
+const alts=a=>{const n=norm(a),S=new Set([n.replace(art,'')]);n.split('/').forEach(p=>{p=p.trim().replace(art,'').trim();if(p.length>1)S.add(p)});return [...S]};
+function lev(a,b){const m=[];for(let i=0;i<=a.length;i++)m[i]=[i];for(let j=1;j<=b.length;j++)m[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]==b[j-1]?0:1));return m[a.length][b.length]}
+function judge(v){if(tp=='cs')return csj(v);if(tp!='voc')return pj(v);const u=norm(v).replace(art,'').trim();if(!u)return 0;const A=alts(Q.a);if(A.includes(u))return 2;return A.some(x=>x.length>=6&&lev(u,x)<=1)?1:0}
+function check(){
+  const wi=$('#wi'),r=judge(wi.value);Q.done=true;wi.readOnly=true;wi.classList.add(r?'ok':'bad');record(!!r);
+  const fb=$('#fb');fb.className='fb '+(r?'ok':'bad');
+  fb.innerHTML=r==2?'✓ ¡Correcto!':r==1?`✓ Casi — se escribe: <u>${Q.a}</u>`:`✗ ${Q.acc?'Revisa el acento · ':''}Era: <u>${Q.a}</u> <button class="btn" id="ov">Cuenta como correcta</button>`;
+  if(!r)$('#ov').onclick=()=>{Q.miss.pop();Q.ok++;Q.streak++;hud();fb.className='fb ok';fb.textContent='✓ Contada como correcta';wi.className='ok'};
+  note(fb);$('#wk').textContent=Q.i+1==Q.items.length?'Resultados':'Siguiente →';
+}
+function hud(){$('#hud').textContent=`${Q.i+1}/${Q.items.length} · ✓ ${Q.ok}${Q.streak>2?' · 🔥'+Q.streak:''}`}
+function choose(i){
+  if(Q.done||i>=Q.o.length)return;Q.done=true;
+  const ok=Q.o[i]==Q.a,bs=$$('.opt');
+  bs[i].classList.add(ok?'ok':'bad');bs[Q.o.indexOf(Q.a)].classList.add('ok');$('#ans').classList.add('done');
+  record(ok);note($('#ans'));$('#nx').classList.add('on');$('#nx').onclick=next;
+}
+function record(ok){const t=Q.items[Q.i];if(ok){Q.ok++;Q.streak++}else{Q.streak=0;Q.miss.push(t)}hud();$('#pb').style.width=((Q.i+1)/Q.items.length*100)+'%'}
+function flip(){$('#fc').classList.toggle('f');$('#jb').classList.add('on')}
+function grade(ok){if(!$('#jb').classList.contains('on')||Q.done)return;Q.done=true;record(ok);setTimeout(next,350)}
+function next(){Q.i++;Q.i>=Q.items.length?finish():ask()}
+function finish(){
+  const n=Q.items.length,pc=Math.round(Q.ok/n*100);
+  show('res');$('#rn').textContent='0%';$('#rp').style.strokeDashoffset=565;
+  setTimeout(()=>{$('#rp').style.strokeDashoffset=565*(1-pc/100);let c=0;const iv=setInterval(()=>{c+=Math.max(1,pc/40|0);if(c>=pc){c=pc;clearInterval(iv)}$('#rn').textContent=c+'%'},25)},120);
+  $('#rt').textContent=pc==100?'¡Perfecto! 🎉':pc>=80?'¡Muy bien!':pc>=60?'Vas bien, sigue así':'¡A practicar más!';
+  $('#rs').textContent=`${Q.ok} de ${n} correctas`;
+  $('#ra').innerHTML=(Q.miss.length?`<button class="cta" id="rr">Repasar ${Q.miss.length} falladas</button>`:'')+`<button class="btn" id="ra1">Otra vez</button><button class="btn" id="rh">Inicio</button>`;
+  $('#rm').innerHTML=Q.miss.length?`<h3>Para repasar</h3><div class="ml">${Q.miss.map(t=>`<div><b>${t.es}</b><span>${t.en}</span></div>`).join('')}</div>`:'';
+  if($('#rr'))$('#rr').onclick=()=>start(shuf(Q.miss));
+  $('#ra1').onclick=()=>start();$('#rh').onclick=()=>{render();show('home')};
+}
+$('#go').onclick=()=>start();
+$('#bk').onclick=()=>{render();show('home')};
+document.addEventListener('keydown',e=>{
+  if(!$('#quiz').classList.contains('on')){if(e.key=='Enter'&&$('#home').classList.contains('on')&&!$('#go').disabled)start();return}
+  if(e.key=='Escape'){render();show('home');return}
+  if(st.mode=='write')return;
+  if(st.mode=='quiz'){
+    if('1234'.includes(e.key)&&e.key)choose(+e.key-1);
+    else if((e.key=='Enter'||e.key==' '||e.key=='ArrowRight')&&Q.done){e.preventDefault();next()}
+  }else{
+    if(e.key==' '){e.preventDefault();flip()}
+    else if(e.key=='ArrowLeft')grade(0);else if(e.key=='ArrowRight')grade(1);
+  }
+});
+const VG=G,VOPTS=OPTS,ALT={'se rió':'se rio'};
+const PG={
+hoja:{n:'Hoja 260',p:'Parte I',i:'📄',s:[
+['Verbos 1–10','empezar;yo;empiezo;empecé;empezo,empeso;empezé,empesé|tener;nosotros;tenemos;tuvimos;tienemos,tenamos;tenimos,tuvemos|servir;ellos;sirven;sirvieron;servan,sirvan;servieron,sirvaron|traer;tú;traes;trajiste;trayes,traigues;traíste,trajite|divertirse;ud.;se divierte;se divirtió;se divirte,se divertie;se divertió,se divirtío|pagar;yo;pago;pagué;pagué,pagas;pagó,pagé|estar;nosotros;estamos;estuvimos;estemos,estámos;estivimos,estaron|dar;vosotros;dais;disteis;dáis,dan;dasteis,dísteis|volver;ella;vuelve;volvió;volve,vuelva;vulvió,volvía|saber;tú;sabes;supiste;sabas,sabés;sabiste,supites'],
+['Verbos 11–20','conducir;uds.;conducen;condujeron;conducan,conduzcen;conducieron,condujieron|reírse;él;se ríe;se rió;se rie,se reía;se rieó,se reyó|sacar;yo;saco;saqué;saque,sacó;sacé,saquí|ver;tú;ves;viste;veas,vés;vistes,veíste|ir;nosotros;vamos;fuimos;imos,vayamos;iimos,fuemos|huir;ellos;huyen;huyeron;huien,huían;huieron,huyaron|caerse;él;se cae;se cayó;se caye,se caiga;se caió,se cayió|poner;yo;pongo;puse;pono,pongue;poní,pusé|venir;vosotros;venís;vinisteis;vienís,venéis;venisteis,vinéis|ser;nosotros;somos;fuimos;semos,sómos;seímos,fuemos']]},
+reg:{n:'Regulares',p:'Ortografía',i:'🔤',s:[
+['Regulares -ar/-er/-ir','hablar;yo;hablo;hablé;hablé,hablas;hablo,hablí|comer;tú;comes;comiste;comas,comés;comistes,comites|vivir;ellos;viven;vivieron;vivan,vivien;vivaron,viviron|bailar;ella;baila;bailó;baile,bailas;bailo,bailé|aprender;vosotros;aprendéis;aprendisteis;aprenden,aprendés;aprendasteis,aprendieron|abrir;yo;abro;abrí;abre,abra;abrió,abrío'],
+['-car, -gar, -zar','buscar;yo;busco;busqué;busque,buscas;buscé,busquí|llegar;yo;llego;llegué;llegue,llegas;llegé,llegó|comenzar;yo;comienzo;comencé;comience,comenzo;comenzé,comencí|jugar;yo;juego;jugué;juegue,jugo;jugé,jugó|practicar;yo;practico;practiqué;practique,practicas;practicé,practicó|almorzar;yo;almuerzo;almorcé;almuerce,almorzo;almorzé,almorzó|tocar;yo;toco;toqué;toque,tocas;tocé,tocó'],
+['i → y (leer, oír…)','leer;ellos;leen;leyeron;lean,leyen;leieron,leían|creer;ud.;cree;creyó;crea,creye;creió,creía|oír;tú;oyes;oíste;oís,oyas;oiste,oyiste|construir;ella;construye;construyó;construya,construie;construió,construyo|caer;tú;caes;caíste;caigas,cayes;caiste,cayiste|destruir;ellos;destruyen;destruyeron;destruyan,destruien;destruieron,destruyaron']]},
+irr:{n:'Irregulares',p:'Cambios de raíz',i:'⚡',s:[
+['Cambio de raíz -ir','dormir;ella;duerme;durmió;duerma,dormo;dormió,duermió|pedir;yo;pido;pedí;pida,pedo;pidí,pedió|preferir;ellos;prefieren;prefirieron;prefieran,prefiren;preferieron,prefiaron|morir;él;muere;murió;muera,more;morió,muerió|vestirse;ud.;se viste;se vistió;se vista,se vesta;se vestió,se visto|sentir;ella;siente;sintió;sienta,sinte;sentió,sientió|seguir;tú;sigues;seguiste;sigas,seguís;siguiste,seguites'],
+['Raíz u / i / j','poder;yo;puedo;pude;pueda,podo;podí,pudí|querer;nosotros;queremos;quisimos;queramos,quieremos;querimos,quisemos|hacer;ud.;hace;hizo;haz,hacen;hacío,hació|decir;ellos;dicen;dijeron;dican,dices;dijieron,dicieron|traducir;yo;traduzco;traduje;traduzca,traduco;tradució,tradujé|venir;ella;viene;vino;venga,vien;venió,vinió|poner;ellos;ponen;pusieron;pongan,ponan;ponieron,pusiron|andar;tú;andas;anduviste;andes,andás;andaste,andubiste|caber;yo;quepo;cupe;quepa,cabo;cabí,cupí'],
+['Ser, ir, dar, ver','ser;ella;es;fue;sea,eres;fué,sió|ir;ellos;van;fueron;ven,vayan;iron,fuen|dar;yo;doy;di;dé,do;dé,dí|ver;yo;veo;vi;vea,vo;ví,vei|dar;ellos;dan;dieron;den,dad;daron,dioron|ver;ud.;ve;vio;vea,veo;vió,vido|ser;tú;eres;fuiste;sé,eras;fuistes,fuites|ir;yo;voy;fui;vaya,vas;fuí,ví']]}};
+const TOP={
+voc:{k:'voc',n:'Unidad 2 Vocabulario',i:'🏘️',sub:'La familia y la comunidad',tag:'Español 260H · Unidad 2',h1:'La familia<span>y la comunidad</span>',G:VG,all:'Páginas 1–2',u:'palabras',g:'fam',dir:'es',OPTS:VOPTS},
+pret:{k:'pret',n:'Formación del pretérito',i:'⏳',sub:'Presente y pretérito · Español 260',tag:'Español 260 · Parte I: La formación',h1:'El pretérito<span>formación y práctica</span>',G:PG,all:'Hoja + práctica',u:'formas',g:'hoja',dir:'es',
+ OPTS:{dir:['Ejercicio',[['es','Inf. → Pretérito'],['pr','Inf. → Presente'],['en','Pretérito → Inf.'],['mix','Mixto']]],mode:VOPTS.mode,len:VOPTS.len}}};
+const COPTS={dir:['Ejercicio',[['es','Completar'],['en','Forma → Inf.'],['mix','Mixto']]],mode:VOPTS.mode,len:VOPTS.len};
+const IG={
+reg:{n:'Regulares',p:'Terminaciones',i:'✅',s:[
+['Terminaciones regulares','Ayer yo ___ (hablar) con mi abuela.;hablé;hablar;hablo,hablaba|Anoche tú ___ (comer) pizza.;comiste;comer;comías,comistes|La semana pasada ellos ___ (vivir) en Madrid.;vivieron;vivir;vivían,vivaron|Hace dos días nosotros ___ (visitar) el museo.;visitamos;visitar;visitábamos,visitemos|Anteayer ella ___ (escribir) un correo.;escribió;escribir;escribía,escribío|El año pasado vosotros ___ (aprender) mucho.;aprendisteis;aprender;aprendíais,aprendasteis|Esta mañana yo ___ (salir) temprano.;salí;salir;salía,salió|Una vez ud. ___ (perder) las llaves.;perdió;perder;perdía,perdío'],
+['Ortografía (-car, -gar, -zar, i→y)','Ayer yo ___ (buscar) mis gafas.;busqué;buscar;buscé,buscaba|El mes pasado yo ___ (llegar) tarde.;llegué;llegar;llegé,llegaba|Anoche yo ___ (empezar) la tarea.;empecé;empezar;empezé,empezaba|Hace un año yo ___ (jugar) en el equipo.;jugué;jugar;jugé,jugaba|Anoche ella ___ (leer) un libro.;leyó;leer;leió,leía|Ayer ellos ___ (oír) la noticia.;oyeron;oír;oyieron,oían|Esa noche tú ___ (caer) en la calle.;caíste;caer;caiste,caías|Hace tres horas yo ___ (sacar) fotos.;saqué;sacar;sacé,sacaba']]},
+irr:{n:'Irregulares',p:'Raíces y cambios',i:'⚡',s:[
+['Cambio de raíz -ir','Anoche ellos ___ (dormir) poco.;durmieron;dormir;dormían,dormieron|Ayer ella ___ (pedir) la cuenta.;pidió;pedir;pedía,pedió|La planta ___ (morir) la semana pasada.;murió;morir;moría,morió|Anoche nosotros ___ (servir) la cena.;servimos;servir;servíamos,sirvimos|Ayer ellos ___ (preferir) quedarse.;prefirieron;preferir;preferían,preferieron|Esta mañana yo me ___ (vestir) rápido.;vestí;vestirse;vestía,vistí|Aquella noche él se ___ (divertir) mucho.;divirtió;divertirse;divertía,divertió'],
+['Raíces irregulares','Ayer yo ___ (tener) un examen.;tuve;tener;tenía,tuvé|Anoche nosotros ___ (estar) en casa.;estuvimos;estar;estábamos,estivimos|Hace dos semanas ella ___ (venir) a verme.;vino;venir;venía,venió|Ayer yo ___ (hacer) la tarea.;hice;hacer;hacía,hací|El año pasado ellos ___ (decir) la verdad.;dijeron;decir;decían,dijieron|Esta tarde tú ___ (poder) terminarlo.;pudiste;poder;podías,podiste|Anoche yo ___ (traer) el postre.;traje;traer;traía,traí|Una vez ellos ___ (conducir) toda la noche.;condujeron;conducir;conducían,conducieron|Ayer yo ___ (saber) la noticia.;supe;saber;sabía,sabí'],
+['Ser, ir, dar, ver','El sábado yo ___ (ir) al cine.;fui;ir;iba,fuí|Anoche ella ___ (ser) la última.;fue;ir/ser;era,fué|Ayer tú ___ (dar) un regalo.;diste;dar;dabas,disté|Anteayer nosotros ___ (ver) una película.;vimos;ver;veíamos,vemos|El año pasado ellos ___ (ir) a México.;fueron;ir/ser;iban,fuyeron|Hace una hora yo le ___ (dar) las gracias.;di;dar;daba,dí|Anoche ud. ___ (ver) la tele.;vio;ver;veía,vió']]}};
+const MG={
+for:{n:'Formación',p:'Terminaciones',i:'🔁',s:[
+['Regulares -ar / -er / -ir','Cuando yo era niño, yo ___ (jugar) en el parque.;jugaba;jugar;jugué,jugaban|Mis abuelos siempre ___ (cocinar) los domingos.;cocinaban;cocinar;cocinaron,cocinabas|Tú ___ (comer) mucho de niño.;comías;comer;comiste,comés|Nosotros ___ (vivir) cerca del mar.;vivíamos;vivir;vivimos,vivíanos|Vosotros ___ (escribir) cartas cada semana.;escribíais;escribir;escribisteis,escribiais|Ella ___ (hablar) con frecuencia con su tía.;hablaba;hablar;habló,hablava|Yo ___ (salir) todos los lunes.;salía;salir;salí,salio|Todos los días nosotros ___ (caminar) a la escuela.;caminábamos;caminar;caminamos,caminabamos'],
+['Irregulares: ser, ir, ver','De joven, yo ___ (ser) muy tímido.;era;ser;fui,eras|Nosotros ___ (ir) a la playa cada verano.;íbamos;ir;fuimos,ibamos|Ellos siempre ___ (ver) la tele juntos.;veían;ver;vieron,vían|Tú ___ (ser) mi mejor amigo.;eras;ser;fuiste,eres|Vosotros ___ (ir) a menudo al cine.;ibais;ir;fuisteis,íbais|Ud. ___ (ver) a sus nietos los domingos.;veía;ver;vio,veia|Nosotros ___ (ser) muy jóvenes.;éramos;ser;fuimos,eramos|Yo ___ (ir) a la escuela a pie.;iba;ir;fui,ibas']]},
+ctx:{n:'Tarea',p:'Hoja de imperfecto',i:'📝',s:[
+['Ahora → Antes (Tarea 1)','Ahora como fruta a diario. De joven, nunca ___ fruta (comer).;comía;comer;comí,como|Ahora leo el periódico a menudo. De joven, lo ___ de vez en cuando (leer).;leía;leer;leí,leo|Ahora me levanto a las 8. De joven, me ___ más tarde (levantarse).;levantaba;levantarse;levanté,levantaban|Ahora sólo nado en verano. De joven, ___ dos veces por semana (nadar).;nadaba;nadar;nadé,nadaban|Ahora siempre me duele la espalda. De joven, casi nunca me ___ (doler).;dolía;doler;dolió,dolían|Ahora gano mucho dinero. De joven, jamás ___ dinero (ganar).;ganaba;ganar;gané,ganaban|Ahora toco el piano algunos domingos. De joven, lo ___ a menudo (tocar).;tocaba;tocar;toqué,tocaban'],
+['Completar frases (Tarea 2)','El lunes no fui a trabajar porque me ___ mal (encontrarse).;encontraba;encontrarse;encontré,encontraban|El martes no estuve en tu fiesta porque ___ mala (estar).;estaba;estar;estuve,estabas|Antes de la guerra, en este país ___ muchos problemas (haber).;había;haber;hubo,habían|¿Tú ___ que todos los españoles hablaban bien el castellano? (pensar);pensabas;pensar;pensaste,pensabais|¿Pensabas que todos los españoles ___ bien el castellano? (hablar);hablaban;hablar;hablaron,hablavan|Cuando Ana ___ 20 años, estudiaba en NYU (tener).;tenía;tener;tuvo,tenían|Cuando Ana tenía 20 años, ___ en NYU (estudiar).;estudiaba;estudiar;estudió,estudiaban|Cuando Juan y Pablo ___ jóvenes, bailaban bien el vals (ser).;eran;ser;fueron,era|Cuando Juan y Pablo eran jóvenes, ___ bien el vals (bailar).;bailaban;bailar;bailaron,bailaba|Cuando ___ a clase, vi un accidente (ir).;iba;ir;fui,iban|De niño, yo me ___ temprano cada noche (acostarse).;acostaba;acostarse;acosté,acostaban'],
+['Pretérito o imperfecto (Tarea 3)','Cuando yo ___ en el este, mi familia hacía un viaje (vivir).;vivía;vivir;viví,vivíamos|Mi familia siempre ___ un viaje en las vacaciones (hacer).;hacía;hacer;hizo,hacían|Generalmente nosotros ___ a un lago o a las montañas (viajar).;viajábamos;viajar;viajamos,viajaban|Mi madre decidió que nosotros ___ a la capital (ir).;íbamos;ir;fuimos,iban|La mañana del viaje, nosotros ___ a las cinco (salir).;salimos;salir;salíamos,salíanos|Yo ___ mucho sueño y me dormí otra vez (tener).;tenía;tener;tuve,tenían|Cuando me desperté, mis hermanos todavía ___ (dormir).;dormían;dormir;durmieron,dormieron|El sol ___ y hacía buen tiempo (brillar).;brillaba;brillar;brilló,brillaban|El paisaje ___ magnífico (ser).;era;ser;fue,eran|Al lado de la carretera ___ mucho que ver (haber).;había;haber;hubo,habían|Una vez Pepe ___ unas vacas (ver).;vio;ver;veía,vió|Después que mis hermanos se despertaron, nosotros ___ en un restaurante (comer).;comimos;comer;comíamos,comiemos|Por fin nosotros ___ a la capital (llegar).;llegamos;llegar;llegábamos,llegemos']]}};
+const AG={
+pre:{n:'Pretérito',p:'Acción completada',i:'✅',s:[
+['Hace…, ayer, pasado','ayer=yesterday|anoche=last night|anteayer=the day before yesterday|anteanoche=the night before last|el otro día=the other day|en ese momento=at that moment|hace dos días=two days ago|hace un año=a year ago|hace seis meses=six months ago|hace dos semanas=two weeks ago|hace tres horas=three hours ago|hace cinco minutos=five minutes ago|la semana pasada=last week|el mes pasado=last month|el año pasado=last year|el fin de semana pasado=last weekend'],
+['Momentos del día y más','esta mañana=this morning|esta tarde=this afternoon|esta noche=this evening|esa mañana=that morning|esa tarde=that afternoon|esa noche=that night/evening|aquella mañana=that morning (a long time ago)|aquella tarde=that afternoon (a long time ago)|aquella noche=that evening (a long time ago)|de repente=suddenly|una vez=once (one time)|entonces=then/so|desde el primer momento=from the first moment']]},
+imp:{n:'Imperfecto',p:'Hábito y descripción',i:'🔁',s:[
+['Siempre, todos los…','siempre=always|nunca/jamás=never|todos los días=every day|todas las noches=every night|cada día=every/each day|cada noche=every/each night|cada mes=each/every month|cada año=each/every year|cada semana=each/every week|cada dos semanas=every other week|los lunes/martes/etc.=on Mondays/etc.|soler + inf.=used to do something|todo el tiempo=all of the time|mientras=while|por un rato=for a while|durante/en aquella época=during that time (period of history)'],
+['A veces, a menudo…','con frecuencia=with frequency|a menudo=often|muchas veces=many times|a veces=sometimes|de vez en cuando=once in a while|varias veces=many times|frecuentemente=frequently|algunas veces=sometimes|por lo general=in general/usually|casi nunca=almost never']]}};
+TOP.ind={k:'cl',n:'Pretérito Indefinido',i:'✅',sub:'Terminaciones e irregulares en contexto',tag:'Español 260 · Pretérito',h1:'Pretérito<span>indefinido</span>',G:IG,all:'Práctica',u:'frases',g:'reg',dir:'es',OPTS:COPTS};
+TOP.imp={k:'cl',n:'Imperfecto de Indicativo',i:'🔁',sub:'Formación y tarea de imperfecto',tag:'Español 260 · Imperfecto',h1:'El imperfecto<span>de indicativo</span>',G:MG,all:'Formación + tarea',u:'frases',g:'for',dir:'es',OPTS:COPTS};
+TOP.adv={k:'voc',n:'Expresiones adverbiales de tiempo',i:'🕒',sub:'Pretérito vs. imperfecto',tag:'Español 260 · Tiempos del pasado',h1:'Expresiones<span>adverbiales de tiempo</span>',G:AG,all:'Pretérito + imperfecto',u:'expresiones',g:'pre',dir:'es',OPTS:VOPTS};
+const CSOPTS={dir:['Ejercicio',[['tr','Traducir'],['fb','Completar'],['mix','Mixto']]],mode:VOPTS.mode,len:VOPTS.len};
+const NT={saber:{i:'imperfecto = knew a fact / knew how',p:'pretérito = found out (a precise moment)'},conocer:{i:'imperfecto = was familiar with',p:'pretérito = met for the first time'},poder:{i:'imperfecto = had the ability / possibility (not necessarily done)',p:'pretérito = managed to after effort (no pude = failed)'},querer:{i:'imperfecto = wanted / intended',p:'pretérito = tried (no quise = refused)'},tener:{i:'imperfecto = had / was (age) / had to',p:'pretérito = got, received, experienced at a moment'}};
+const REF=`<div style="overflow-x:auto"><table class="rt"><tr><th>Verbo</th><th>Imperfecto · estado</th><th>Pretérito · evento</th></tr>
+<tr><td><b>saber</b></td><td><b>sabía</b> = knew a fact / knew how<br><i>Yo sabía la verdad.</i></td><td><b>supe</b> = found out<br><i>Ayer supe la verdad.</i></td></tr>
+<tr><td><b>conocer</b></td><td><b>conocía</b> = was familiar with<br><i>Yo ya conocía a Laura.</i></td><td><b>conocí</b> = met for the first time<br><i>Anoche conocí a Laura en la fiesta.</i></td></tr>
+<tr><td><b>poder</b></td><td><b>podía</b> = was able / had the possibility<br><i>Podía ir, pero me quedé en casa.</i></td><td><b>pude</b> = managed to (<b>no pude</b> = failed)<br><i>Pude abrir la puerta tras intentar mucho.</i></td></tr>
+<tr><td><b>querer</b></td><td><b>quería</b> = wanted / intended<br><i>Quería comprar el coche.</i></td><td><b>quise</b> = tried (<b>no quise</b> = refused)<br><i>Quise entrar, pero no me dejaron.</i></td></tr>
+<tr><td><b>tener</b></td><td><b>tenía</b> = had / was (age) / had to<br><i>Tenía 20 años. Tenía un perro.</i></td><td><b>tuve</b> = got, received, experienced<br><i>Tuve un accidente. Tuve una llamada.</i></td></tr></table></div>`;
+const CG={
+hoja:{n:'Hoja',p:'15 frases',i:'📄',s:[
+['Frases 1–8',`Ayer en la fiesta {conocí} a los padres de mi novio por primera vez.;conocía;conocer;p;Yesterday at the party I met my boyfriend's parents for the first time.|Durante mi infancia, yo {sabía} hablar francés con fluidez porque vivía en París.;supe;saber;i;During my childhood, I knew how to speak French fluently because I lived in Paris.|El examen era muy difícil, pero después de estudiar toda la noche {pude} aprobarlo.;podía;poder;p;The exam was very hard, but after studying all night I managed to pass it.|Cuando llegué a la oficina, {supe} la noticia de que mi jefe había dimitido.;sabía;saber;p;When I got to the office, I found out the news that my boss had resigned.|Ella no {quiso} comer tarta en el cumpleaños porque estaba a dieta y se negó rotundamente.;quería;querer;p;She refused to eat cake at the birthday because she was on a diet and flatly declined.|En aquella época, nosotros {teníamos} una casa grande en el campo.;tuvimos;tener;i;Back then, we had a big house in the countryside.|Al cabo de tres horas de caminata, finalmente {pudimos} llegar a la cumbre de la montaña.;podíamos;poder;p;After three hours of hiking, we finally managed to reach the summit.|Laura me llamó anoche y me dijo que {quería} ir al cine el fin de semana.;quiso;querer;i;Laura called me last night and told me she wanted to go to the movies on the weekend.`],
+['Frases 9–15',`El lunes pasado mi hermano {tuvo} un accidente con la bicicleta y se rompió la pierna.;tenía;tener;p;Last Monday my brother had an accident on his bike and broke his leg.|¿Tú ya {conocías} esta ciudad antes de tu viaje del año pasado?;conociste;conocer;i;Were you already familiar with this city before your trip last year?|Intenté llamar a la policía, pero no {pude} porque mi teléfono no tenía batería en ese instante.;podía;poder;p;I tried to call the police, but I couldn't because my phone had no battery at that moment.|En cuanto abrí la carta, {supe} que me habían contratado para el puesto.;sabía;saber;p;As soon as I opened the letter, I found out they had hired me for the job.|María {tuvo} fiebre anoche a las diez, así que le dimos una medicina inmediatamente.;tenía;tener;p;María came down with a fever last night at ten, so we gave her medicine right away.|Le pedí perdón muchas veces, pero él no {quiso} escucharme y se fue enfadado.;quería;querer;p;I apologized to him many times, but he refused to listen to me and left angry.|Cuando era joven, él {sabía} tocar el piano extraordinariamente bien.;supo;saber;i;When he was young, he knew how to play the piano extremely well.`]]},
+mas:{n:'Más práctica',p:'19 frases',i:'➕',s:[
+['Saber y conocer',`Mi abuela {sabía} cocinar platos de todo el mundo.;supo;saber;i;My grandmother knew how to cook dishes from all over the world.|Anoche {supe} que mi equipo ganó el campeonato.;sabía;saber;p;Last night I found out that my team won the championship.|Antes del viaje, ya {conocíamos} Barcelona.;conocimos;conocer;i;Before the trip, we already knew Barcelona.|El verano pasado {conocí} a mi mejor amiga en un campamento.;conocía;conocer;p;Last summer I met my best friend at a camp.|A las tres de la tarde {supimos} el resultado del examen.;sabíamos;saber;p;At three in the afternoon we found out the exam result.|Yo no {sabía} que ella vivía aquí.;supe;saber;i;I didn't know she lived here.`],
+['Poder y querer',`Ayer {pude} terminar la tarea después de mucho esfuerzo.;podía;poder;p;Yesterday I managed to finish the homework after a lot of effort.|De niño, yo {podía} nadar toda la tarde sin cansarme.;pude;poder;i;As a kid, I could swim all afternoon without getting tired.|Intenté levantar la caja, pero no {pude}.;podía;poder;p;I tried to lift the box, but I couldn't.|Yo {quería} un helado, pero no tenía dinero.;quise;querer;i;I wanted an ice cream, but I had no money.|Mi hermano no {quiso} ayudarme con la mudanza.;quería;querer;p;My brother refused to help me with the move.|Ellos {querían} ir a la playa, pero llovía.;quisieron;querer;i;They wanted to go to the beach, but it was raining.|Hoy {quise} llamarte, pero no contestaste.;quería;querer;p;Today I tried to call you, but you didn't answer.`],
+['Tener',`Cuando {tenía} diez años, vivía en México.;tuve;tener;i;When I was ten years old, I lived in Mexico.|Ayer {tuve} una llamada importante de mi jefe.;tenía;tener;p;Yesterday I got an important call from my boss.|Mis padres {tenían} un perro muy grande.;tuvieron;tener;i;My parents had a very big dog.|El sábado {tuvimos} una reunión inesperada.;teníamos;tener;p;On Saturday we had an unexpected meeting.|Anoche {tuve} un sueño muy extraño.;tenía;tener;p;Last night I had a very strange dream.|Antes, ellos {tenían} que trabajar los domingos.;tuvieron;tener;i;Back then, they had to work on Sundays.`]]}};
+TOP.cs={k:'cs',n:'Cambios de significado',i:'🔀',sub:'Saber, conocer, poder, querer, tener · pretérito vs. imperfecto',tag:'Español 260 · U2: Familia y comunidades',h1:'Cambios<span>de significado</span>',G:CG,all:'Hoja + práctica',u:'frases',g:'hoja',dir:'tr',OPTS:CSOPTS,ref:REF};
+function note(el){const t=Q.t;if(tp!='cs'||!t)return;el.insertAdjacentHTML('afterend',`<div style="margin:.8rem 0;font-size:.9rem;color:var(--mute)">💡 <b>${t.key}</b> — ${NT[t.inf][t.tn]}<br><i>${t.es}</i><br>${t.en}</div>`)}
+function csj(v){const t=Q.t,u=v.toLowerCase().trim();if(!u)return 0;if(Q.d=='fb')return pj(v);const L='a-záéíóúüñ',has=(k,s)=>new RegExp('(^|[^'+L+'])'+k+'($|[^'+L+'])').test(s);if(has(t.key,u))return has(t.alt,u)?0:2;Q.acc=has(noacc(t.key),noacc(u));return 0}
+let tp='voc',ALLP='',UNIT='';
+function build(){T=[];for(const g in G)G[g].s.forEach((s,i)=>s[1].split('|').forEach(x=>{
+ if(tp=='voc'){const [es,en]=x.split('=');T.push({es,en,k:g+i})}
+ else if(tp=='cs'){const [r,alt,inf,tn,en]=x.split(';'),key=r.match(/\{(.+?)\}/)[1];T.push({es:r.replace(/[{}]/g,''),en,key,alt,inf,tn,fb:r.replace(/\{.+?\}/,`___ (${inf})`),k:g+i})}
+ else if(tp=='cl'){const [es,en,inf,w]=x.split(';');T.push({es,en,inf,w:w.split(','),k:g+i})}
+ else{const [inf,sj,pr,en,wp,wt]=x.split(';');T.push({es:`${inf} (${sj})`,inf,pr,en,wp:wp.split(','),wt:wt.split(','),k:g+i})}}))}
+function QA(t,d){
+ if(tp=='cs')return d=='fb'?[t.fb,t.key,'Completa con el verbo']:[t.en,t.es,'Traduce al español'];
+ if(tp=='cl')return d=='es'?[t.es,t.en,'Completa con el verbo']:[t.en,t.inf,'Forma → Infinitivo'];
+ if(tp=='voc')return d=='es'?[t.es,t.en,'Español → English']:[t.en,t.es,'English → Español'];
+ return d=='es'?[t.es,t.en,'Infinitivo → Pretérito']:d=='pr'?[t.es,t.pr,'Infinitivo → Presente']:[t.en,t.inf=='ser'||t.inf=='ir'?'ir / ser':t.inf,'Pretérito → Infinitivo']}
+const DIS=(t,d)=>tp=='voc'?[]:tp=='cs'?[d=='fb'?t.alt:t.es.replace(t.key,t.alt)]:tp=='cl'?(d=='es'?t.w:[]):d=='es'?t.wt:d=='pr'?t.wp:[];
+const pickd=()=>tp=='cs'?(Math.random()<.5?'fb':'tr'):tp!='pret'?(Math.random()<.5?'es':'en'):['es','pr','en'][Math.random()*3|0];
+const rf=s=>s.toLowerCase().trim().replace(/\s+/g,' ').replace(/^(me|te|se|nos|os) /,'');
+const noacc=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+function pj(v){const u=rf(v);if(!u)return 0;const A=(Q.a+(ALT[Q.a]?'/'+ALT[Q.a]:'')).split('/').map(rf);if(A.includes(u))return 2;Q.acc=A.some(x=>noacc(x)==noacc(u));return 0}
+function setTopic(id){const o=TOP[id];tp=o.k;$('#ref').innerHTML=o.ref||'';G=o.G;OPTS=o.OPTS;ALLP=o.all;UNIT=o.u;st.dir=o.dir;$('#htag').textContent=o.tag;$('#h1').innerHTML=o.h1;build();pick(o.g);show('home')}
+function showMenu(){$('#mt').innerHTML=Object.entries(TOP).map(([k,o])=>`<button class="tile" data-t="${k}"><i>${o.i}</i><b>${o.n}</b><small>${o.sub}</small></button>`).join('');show('menu')}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-t]');if(t&&$('#menu').classList.contains('on'))setTopic(t.dataset.t)});
+$('#tomenu').onclick=showMenu;
+showMenu();
+</script>
+</body>
+</html>
